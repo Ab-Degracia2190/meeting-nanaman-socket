@@ -1,15 +1,12 @@
 {
   "name": "chat-websocket-server",
   "version": "1.0.0",
-  "description": "WebSocket server for real-time chat application",
+  "description": "Client socket for meeting-nanaman-web-app",
   "main": "index.ts",
   "scripts": {
     "start": "tsx index.ts",
     "dev": "tsx index.ts"
   },
-  "keywords": [
-    "chat-websocket"
-  ],
   "author": "Aldrin Degracia",
   "license": "ISC",
   "dependencies": {

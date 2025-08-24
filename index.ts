@@ -5,6 +5,7 @@ import Redis from 'ioredis';
 import cors from 'cors';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
@@ -32,6 +33,9 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// Serve static files from the src/home directory
+app.use('/static', express.static(path.join(__dirname, 'home')));
 
 interface User {
   id: string;
@@ -62,6 +66,11 @@ interface ChatMessage {
   timestamp: string;
   roomId: string;
 }
+
+// Home route - serve the HTML file
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'src/home', 'index.html'));
+});
 
 // API Routes (unchanged)
 app.post('/api/rooms', async (req: Request, res: Response): Promise<void> => {
