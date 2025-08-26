@@ -4,8 +4,8 @@
   "description": "Client socket for meeting-nanaman-web-app",
   "main": "index.ts",
   "scripts": {
-    "start": "tsx index.ts",
-    "dev": "tsx index.ts"
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "author": "Aldrin Degracia",
   "license": "ISC",

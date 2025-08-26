@@ -12,6 +12,7 @@ dotenv.config();
 const app = express();
 const server = createServer(app);
 const CLIENT = process.env.APP_CLIENT_URL;
+const homeDir = path.join(__dirname, "../src", "home");
 
 const io = new Server(server, {
   cors: {
@@ -33,9 +34,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
-// Serve static files from the src/home directory
-app.use('/static', express.static(path.join(__dirname, 'home')));
 
 interface User {
   id: string;
@@ -67,12 +65,13 @@ interface ChatMessage {
   roomId: string;
 }
 
-// Home route - serve the HTML file
-app.get('/', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, 'src/home', 'index.html'));
+app.use("/static", express.static(homeDir));
+
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(homeDir, "index.html"));
 });
 
-// API Routes (unchanged)
+// API Routes
 app.post('/api/rooms', async (req: Request, res: Response): Promise<void> => {
   try {
     const apiKey = req.headers['x-api-key'];
