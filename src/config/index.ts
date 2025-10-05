@@ -17,7 +17,7 @@ export const config = {
   backendUrl: requireEnv("APP_CHAT_SOCKET_URL"),
   redisUrl: requireEnv("APP_REDIS_URL"),
   apiKey: requireEnv("APP_API_KEY"),
-  staticDir: path.join(__dirname, "../src", "home"),
+  staticDir: path.join(__dirname, "../../public"), 
 
   // Google OAuth
   googleClientId: requireEnv("APP_GOOGLE_CLIENT_ID"),

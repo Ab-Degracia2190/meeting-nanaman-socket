@@ -1,9 +1,8 @@
-// socket/src/app.ts
 import express, { Request, Response } from "express";
 import cors from "cors";
 import path from "path";
 import session from "express-session";
-import RedisStore from "connect-redis";
+import connectRedis from "connect-redis";
 import Redis from "ioredis";
 import { config, corsOptions } from "./config";
 import { apiRoutes } from "./routes/api";
@@ -22,13 +21,16 @@ export const createApp = () => {
 
   // Redis client for session store
   const redis = new Redis(config.redisUrl);
+  
+  const RedisStore = connectRedis(session);
 
   // Session middleware
   app.use(
     session({
-    store: new RedisStore({
-      client: redis,
-    }),
+      store: new RedisStore({
+        client: redis as any,
+        prefix: "sess:",
+      }),
       secret: config.sessionSecret || "fallback-secret-key",
       resave: false,
       saveUninitialized: false,
